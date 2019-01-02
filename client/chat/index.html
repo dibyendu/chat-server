@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Chat Application</title>
+    <!-- import the iris websocket client-side library for browser-->
+    <script src="https://cdn.jsdelivr.net/gh/kataras/iris@{{ iris.version }}/websocket/client.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      let guid = () => {
+        let s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
+      }
+      const WEBSOCKET_URL = (document.location.protocol === 'https:' ? 'wss' : 'ws') +
+                    '://' + document.location.hostname +
+                    (document.location.port ? (':' + document.location.port) : '') +
+                    '{{ websocket.endpoint }}',
+            USER_ID = guid()
+      var   USER_NAME = null
+      while (USER_NAME == null || USER_NAME == '')
+        USER_NAME = prompt('Please enter your name')
+    </script>
+  </head>
+  <body>
+    <div id='app' class='loading'></div>
+    <script type='text/javascript'>
+      const fonts = {
+        'Kranky': 'SendChatwi',
+        'Roboto Slab': null,
+      }
+    </script>
+    <% if (htmlWebpackPlugin.options.development) { %>
+      ${ require('raw-loader!../common/loader.html') }
+    <% } else { %>
+      {{ render 'common/loader.html'}}
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+## OSX
+**/.DS_Store
+
+## bundle
+client/bundle/*
+
+## node modules
+client/node_modules/*
+
+## go binaries and vendors
+server/bin/
+server/pkg/
+server/src/**/vendor
+
+## logs
+client/npm*.log

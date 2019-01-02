@@ -1,0 +1,18 @@
+
+.cascading-property(@prop; @rest...) {
+  .-(@i: length(@rest)) when (@i > 0) {
+    .-((@i - 1));
+    @prop-value: extract(@rest, @i);
+    @sub-prop: extract(@prop-value, 1);
+    @value: extract(@prop-value, 2);
+
+    @{prop}-@{sub-prop}+: @value;
+    } .-;
+}
+
+@laptop-L: ~"(max-width: 1440px)";
+@laptop: ~"(max-width: 1024px)";
+@tablet: ~"(max-width: 768px)";
+@mobile-L: ~"(max-width: 425px)";
+@mobile-M: ~"(max-width: 375px)";
+@mobile-S: ~"(max-width: 320px)";

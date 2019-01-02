@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="10" height="10">
+  <defs>
+    <filter id="a" height="1.3174" width="1.3023" y="-0.15869001" x="-0.15117" style="color-interpolation-filters:sRGB">
+      <feGaussianBlur stdDeviation="1.6734597"/>
+    </filter>
+    <filter id="b" height="1.4941" width="1.4667" y="-0.24706" x="-0.23333" style="color-interpolation-filters:sRGB">
+      <feGaussianBlur stdDeviation="0.37365038"/>
+    </filter>
+    <filter id="c" style="color-interpolation-filters:sRGB">
+      <feGaussianBlur stdDeviation="0.38907938"/>
+    </filter>
+  </defs>
+  <g>
+    <g transform="matrix(0.28903223,0,0,0.29992215,-88.656509,-102.66749)">
+      <path style="opacity:0.73238998;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:url(#a)" d="m 337.32,346.33 c -26.014,24.782 -26.568,25.309 -26.568,25.309"/>
+      <ellipse style="opacity:0.35211002;fill:#1a1a1a;fill-rule:evenodd;filter:url(#b)" transform="translate(0.28469,0.28468)" cx="310.87711" cy="371.14417" rx="1.9216305" ry="1.8148733"/>
+      <ellipse style="opacity:0.35211002;fill:#1a1a1a;fill-rule:evenodd;filter:url(#b)" transform="translate(26.832,-25.408)" cx="310.87711" cy="371.14417" rx="1.9216305" ry="1.8148733"/>
+      <path style="fill:#999999;stroke:#999999;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" d="m 337.68,345.9 c -26.014,24.782 -26.568,25.309 -26.568,25.309"/>
+      <path style="opacity:0.66667002;fill:#ffffff;stroke:#ffffff;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;filter:url(#c)" d="m 337.68,345.9 c -26.014,24.782 -26.568,25.309 -26.568,25.309" />
+    </g>
+  </g>
+</svg>

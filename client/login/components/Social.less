@@ -1,0 +1,315 @@
+@social: {
+
+  @images: '../assets';
+  @width: 200px;
+  @height: 40px;
+  @gutter: 5;
+  @delay: 100ms;
+
+  .social-icons(@list) {
+    .-(@i: length(@list)) when (@i > 0) {
+      .-((@i - 1));
+      @prop: extract(@list, @i);
+      .@{prop} {
+
+        a {
+          span {
+            background-position: 0 (1- @i) * 40px;
+            color: extract(@colors, @i);
+
+            @media @tablet {
+              background-position: 0 (1- @i) * (40px - 4px);
+            }
+            @media @mobile-L {
+              background-position: 0 (1- @i) * 40px;
+            }
+          }
+        }
+
+        z-index: length(@list) - @i;
+        width: @width;
+        top: @i * (@height + @gutter);
+        transition-property: width, top, left, transform;
+        transition-duration: 300ms;
+        transition-delay: (length(@list) - @i) * @delay;
+
+        @media @tablet {
+          width: @width - 60px;
+        }
+        @media @mobile-L {
+          width: @width - 160px;
+          top: 0 !important;
+          left: @i * (@height + @gutter * 4) + 20px !important
+        }
+        @media @mobile-M {
+          left: @i * (@height + @gutter * 2) + 20px !important
+        }
+        @media @mobile-S {
+          left: @i * (@height + @gutter) + 20px !important
+        }
+
+        &.folded {
+          top: 3px * @i;
+          left: (@i - 1) * 2px;
+          width: @width - (@i - 1) * 4;
+          transform: none;
+          transition-delay: (@i - 1) * @delay;
+
+          @media @tablet {
+            width: @width - 60px - (@i - 1) * 4;
+          }
+          @media @mobile-L {
+            width: @width - 160px;
+            left: 30px + 3px * @i !important;
+          }
+        }
+      }
+    } .-;
+  }
+
+  .social-icons(@list, @hover) when (@hover = true) {
+    .-(@i: length(@list)) when (@i > 0) {
+      .-((@i - 1));
+      @prop: extract(@list, @i);
+      &.@{prop} {
+        a {
+          span:hover {
+            background-color: extract(@colors, @i);
+            background-position: 0 (1- @i - length(@list)) * 40px;
+
+            @media @tablet {
+              background-position: 0 (1- @i - length(@list)) * (40px - 4px);
+            }
+            @media @mobile-L {
+              background-position: 0 (1- @i - length(@list)) * 40px;
+            }
+          }
+        }
+      }
+    } .-;
+  }
+
+  .social {
+    position: relative;
+    width: @width;
+    height: @height;
+    display: block;
+    perspective: 800px;
+
+    @media @tablet {
+      width: @width - 60px;
+    }
+    @media @mobile-L {
+      margin-left: -25px;
+      width: @width - 156px
+    }
+
+    ul {
+      li {
+        a {
+          text-decoration: none;
+        }
+        display: block;
+        position: absolute;
+        width: 100%;
+        span {
+          font-family: 'Cabin Sketch', cursive;
+          font-size: 24px;
+          line-height: 40px;
+          width: 100%;
+          background: #F9F9F9;
+          display: block;
+          cursor: pointer;
+          text-align: center;
+          text-indent: 20px;
+          background-repeat: no-repeat;
+          background-image: data-uri('@{images}/social.png');
+          background-size: 40px;
+          backface-visibility: hidden;
+          touch-callout: none;
+          user-select: none;
+          box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+
+          @media @tablet {
+            font-size: 20px;
+            line-height: 40px - 4px;
+            background-size: 40px - 4px;
+          }
+          @media @mobile-L {
+            font-size: 0;
+            line-height: 40px;
+            background-size: 40px;
+          }
+        }
+      }
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: auto;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      top: -22px;
+      left: -1px;
+      width: 100%;
+      height: 20px;
+      background: #F9F9F9;
+      border: 1px solid #DDD;
+      border-bottom: 1px solid #D3D3D3;
+
+      @media @mobile-L {
+        left: 0;
+        top: -1px;
+        width: 20px;
+        height: 40px;
+        border-bottom: 1px solid #DDD;
+        border-right: 1px solid #D3D3D3;
+      }
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: -25px;
+      left: calc(50% - 15px);
+      width: 30px;
+      height: 30px;
+      background: data-uri('@{images}/pin.svg') no-repeat 0 0/cover;
+      transform: rotate(45deg);
+
+      @media @mobile-L {
+        left: calc(50% - 22px);
+        top: 8px;
+        width: 24px;
+        height: 24px;
+        transform: rotate(135deg);
+      }
+    }
+    >span {
+      font-family: 'Cabin Sketch', cursive;
+      font-size: 20px;
+      line-height: 40px;
+
+      @media @tablet {
+        font-size: 16px;
+        line-height: 40px - 4px
+      }
+      @media @mobile-L {
+        left: 22px;
+        font-size: 16px;
+        width: 36px;
+        height: 40px;
+        line-height: 16px;
+        text-align: center;
+        transform-origin: 0 0;
+        box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+      }
+
+      .phone {
+        @media @mobile-L {
+          display: none
+        }
+      }
+
+      z-index: length(@clients);
+      color: #1A0DAB;
+      background: #F9F9F9;
+      display: block;
+      padding: 0 20% 0 0;
+      width: 80%;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transform-origin: 50% 0%;
+      transition: transform 0.3s;
+      backface-visibility: hidden;
+      touch-callout: none;
+      user-select: none;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+      &:after {
+        content: '\25BC';
+        position: absolute;
+        right: 0;
+        width: 20%;
+        text-align: center;
+        font-size: 12px;
+        line-height: 40px;
+        border-left: 1px solid #DDD;
+
+        @media @tablet {
+          font-size: 10px;
+          line-height: 40px - 4px;
+        }
+        @media @mobile-L {
+          content: '\25B6';
+          width: 100%;
+          line-height: 40px;
+          left: 0;
+          bottom: 0;
+          border-left: none;
+          border-top: 1px solid #DDD;
+        }
+      }
+      &:hover {
+        transform: rotateX(30deg);
+
+        @media @mobile-L {
+          transform: rotateY(-30deg);
+        }
+      }
+    }
+    >span.flap-open {
+      transform: rotateX(60deg);
+
+      @media @mobile-L {
+        transform: rotateY(-60deg);
+      }
+    }
+    .social-icons(@clients);
+    &.expanded {
+      >span {
+        &:after {
+          content: '\25B2';
+
+          @media @mobile-L {
+            content: '\25C0';
+          }
+        }
+        box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+        color: #609;
+      }
+      ul {
+        li {
+          span {
+            box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+            transition: background-color 0.2s linear 0s, color 0.2s linear 0s;
+            &:hover {
+              color: #FFF;
+            }
+          }
+          .social-icons(@clients, true);
+          &.microsoft {
+            a {
+              span:hover {
+                background-position: 0 (1- length(@clients)) * 40px;
+
+                @media @tablet {
+                  background-position: 0 (1- length(@clients)) * (40px - 4px);
+                }
+                @media @mobile-L {
+                  background-position: 0 (1- length(@clients)) * 40px;
+                }
+              }
+            }
+          }
+        }
+        height: (length(@clients) + 1) * (@height + @gutter)
+      }
+    }
+  }
+};

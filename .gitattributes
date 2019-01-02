@@ -1,0 +1,3 @@
+server/src/app/handlers/login/social/*secret.yaml filter=git-crypt diff=git-crypt
+server/src/app/util/mail/sendgrid-token.yaml filter=git-crypt diff=git-crypt
+server/src/app/util/mail/email-credentials.yaml filter=git-crypt diff=git-crypt

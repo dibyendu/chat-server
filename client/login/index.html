@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <% if (htmlWebpackPlugin.options.development) { %>
+      ${ require('raw-loader!../common/modernizr.html') }
+    <% } else { %>
+      {{ render 'common/modernizr.html'}}
+    <% } %>
+
+    <!--
+      Do not remove the "//[skip-minify]" comment from the initial line.
+      It distinguishes this <script> block from other <script> blocks and
+      tells the UglifyEs minifier to skip minification for this block during webpack production build.
+      Otherwise it gives error while minification.
+    -->
+    <script type='text/javascript'>
+      // [skip-minify] Template Context
+      <% if (htmlWebpackPlugin.options.development) { %>
+        const TemplateContext = {
+          social: {
+            google: '',
+            facebook: '',
+            github: '',
+            yahoo: '',
+            microsoft: ''
+          },
+          recaptchaKey: ''
+        }
+      <% } else { %>
+        const TemplateContext = {
+          {{#if access_token}}
+            access_token: '{{ access_token }}',
+            redirect_to: '{{ redirect_to }}',
+          {{/if}}
+          {{#if notification}}
+            notification: {
+              type: '{{ notification.type }}',
+              message: '{{ notification.message }}'
+            },
+          {{/if}}
+          social: {
+            {{#each login.social}}
+              {{ this.name }}: '{{{ build_url login.base_url this.url }}}',
+            {{/each}}
+          },
+          recaptchaKey: '{{ login.recaptcha_site_key }}'
+        }
+      <% } %>
+    </script>
+    <script async defer src='https://www.google.com/recaptcha/api.js?render={{ login.recaptcha_site_key }}'></script>
+    <!-- bundled style sheets will be inserted after this line -->
+  </head>
+  <body>
+    <div id='app' class='loading'></div>
+    <script type='text/javascript'>
+      const fonts = {
+        'Fredericka the Great': '\u201C\u201D\u2018\u2019',
+        'Kranky': 'LoginRestrSubm',
+        'Allura': null,
+        'Cabin Sketch': 'Signwth...GooleFacbkuYMrsf',
+        'Roboto': null,
+        'Bilbo Swash Caps': null
+      }
+    </script>
+    <% if (htmlWebpackPlugin.options.development) { %>
+      ${ require('raw-loader!../common/loader.html') }
+    <% } else { %>
+      {{ render 'common/loader.html'}}
+    <% } %>
+    <!-- bundled scripts will be inserted after this line -->
+  </body>
+</html>

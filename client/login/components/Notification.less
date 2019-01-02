@@ -1,0 +1,52 @@
+@import (reference) '../utils/util';
+
+.notification {
+  position: absolute;
+  width: 100%;
+
+  .message {
+
+    .cascading-property(font;
+                            family, 'Roboto';
+                            family, sans-serif;
+                            size, 14px
+                        );
+
+    .cascading-property(border;
+                            radius, 2px;
+                            style, solid;
+                            width, 1px
+                        );
+
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    text-align: center;
+    position: relative;
+    top: -14px;
+    margin: 0 auto;
+    padding: 6px 16px;
+    display: table;
+    z-index: 3;
+    transition: opacity 0.4s ease;
+
+    &.info {
+      background-color: #BAFDBC;
+      border-color: #6F9C60
+    }
+
+    &.warn {
+      background-color: #F9EDBE;
+      border-color: #F0C36D
+    }
+
+    &.error {
+      background-color: #FF8E8E;
+      border-color: #FF4B4B
+    }
+
+    &.show {
+      opacity: 1
+    }
+  }
+}

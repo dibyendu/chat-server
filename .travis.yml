@@ -1,0 +1,122 @@
+# create an encrypted variable as follows:
+# 1. curl -s https://api.travis-ci.org/repos/<USER>/<REPO>/key | jq -r '.key' > /tmp/travis_key.pub
+# 2. echo "foo=bar" | openssl rsautl -encrypt -pubin -inkey /tmp/travis_key.pub -ssl | base64 --wrap=0
+# 3. we represent step 2 as encrypt(foo=bar) for the rest of the file
+
+# something similar to the following decryption step happens in travis virtual machine:
+# 1. echo $secure | base64 -d | openssl rsautl -decrypt -inkey travis_key.pvt
+
+branches:
+  only:
+  - master
+  - dev
+  - /^(?i:issue-[0-9]+)-.*$/
+  - /^dependabot\/dep\/.*$/
+  - /^dependabot\/npm.*$/
+
+os: linux
+dist: trusty
+sudo: false
+
+env:
+  global:
+    # SSH key pair based login credentials for logging into Google Compute Engine VM instance
+    # ssh-keygen -t rsa -b 2048 -C "travis"
+    # this will generate a pair of keys: <SSH_PUBLIC_KEY> and <SSH_PRIVATE_KEY>
+    # add the <SSH_PUBLIC_KEY> to the GCE VM instance
+    # symmetric_key_to_encrypt_the_pvt_key=$(openssl rand 256 | base64 --wrap=0)
+    #         encrypt(symmetric_key=$symmetric_key_to_encrypt_the_pvt_key)
+    - secure: i1hlfUit8laEDAeqU6vNXpslrQxjLWXTjkVYqBRzQBTA6hO5Cgzm4GLXoxH94iB/YGI316fwg7D/Xm6gVYMZ7a18EvzM29jpSrjJNXaok7/eKw/JcTwJDeZlb0EuQrJAhdNhIFatYWMjmAw6G7KIvICLhCQ4upcaat14XIYS5iv6RZgyet3AR3Q8lTpUC1P1PyBy9DSa4lFFrC5BcM9Q1SdNfwbqLf0asLrnAeFPM359M4ASlj1rWPZdVfpSbdxxNaIyzYPR7oRngpeVBgpZf7O81QK6L42tRMb2rR0pIjv7PRwL2gXmU1/3xP7pYaT5MUaF3mJuo8cmK+/IqbXe6qrL+KQaYAnd4j2pO3Gh9AuY1uh41Sfqs8RECbMZrtIjZuT+Q4h0xuWBT9hEVrb97rTdHVm2vejYVlos1c5w7vbp1WU+Ez3xlVi+sq226xztxJncDEWXTZLjnecUuHSc6wlJheEJBcr1H+OcVWw08GtO55prZLchmlheGFi0rRJq6Vp23aB8ej1KSUIplhpuBaJqFiviMwXd4qgib5WL1hwo7YzVpUe4X5xnF9KSiao82H037DdsBRi04Zk682hLvqgfgydrKEXY2mq2aE4jcfZNitzVwWJCYaCcwArPyng/LPKD/lnw4I9sUJXkJnB5SZZUoawdm24yP13xoB6cU34=
+    #                       cat <SSH_PRIVATE_KEY> | openssl enc -aes-256-cbc -k $symmetric_key_to_encrypt_the_pvt_key | base64 --wrap=0
+    - encrypted_ssh_pvt_key=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
+    #         encrypt(gce_vm_public_ip=<IP>)
+    - secure: QNYMsR9lVMx/DMDq2ttcaSdXHZAInhT/v/G2C5GLWODbX3eWzK+zR8n1/VEDX6RLQW4AdeayhRg/XDuL20Ol7mKrp2klKrYYAXdfuKLcDPJ39yInfMrGtkMmFS12RgPF4+T8feI38sbaI2blLNOw0CuW0uufrxzh8UbskJPabulb5Q5pjIxUU0oeg/T+jEp+QR86qfK3XnZl0kE7xMqTv5OCQD7hcmEFnNxOWeTAXNCF8j6S79X8czxlUpQh2mgWC8LiGrEOjkl4wqFGP94vvqXk9EjrG7DVPaoUy3P3jHTC93NG1iO+dHS827JhYUp06NqhsGRde13FJ4Xb3eETsDSGuUg0bPau/XCdMC3WNTQJveMUxWYascCk/RMeqF5WfSYdkGXMT8LpNd9gabCsz6aSvX6Jo0VFnwhAIuDmtHU81RsLMct9WyiTD4PqT+5YdeV8jE9M841RzStN+RF08qhxr/NvEeA1d268vahlJuKX+kgN84Akw9HLzhd+DPt832s82Zjj2JiCaCUpJKuG4ZQNrDpf+rxuXZVJWs5F6TMDkPLh4k3vvkO2Ek8KeOL+JzHJ+aO/ry50UbUBLVFO4+wzIp7zz0Q92SQ4FteOIN5cyvwNHTm81/XD/ejwCvpR10gsNHYfKkXj3KEgKJEPDK2TpPAvLYlM26sRlxR9/Hg=
+    #         encrypt(gce_vm_application_user=<USER_NAME>)
+    - secure: QbqSf8K1nM+QDgGwGmpMss46BDqpNAuXGSfWOJmk1gfT0DaPwm24pWI99KsNaREwKLAfKzcVcHpTRnNwvIpHtOWJoKDHwgpvMH8c+urNgQ79n5Qy43vsgyplvXPRpxlFJjTqTcSniBRqdBGEW42UIn91jmaJbjRgYO9Af3hf0rX/zmdD526rd1CGUdjpYoon7V11If7dZUHBdEc+PuZtw44baocZmih+mrzm/R+40J8PU3PD0+hIcnm2TpdvFZSCZ/EFya8gfh26KOX3PO/6Dd1Xtk9GvMZ6I+I8mfFQv0u7OKN/a3AYYyuc8BJEWfenNSciDGr5V2IXgdvJn5ZE6d5c58vnBFg7rtqRFmrQZmFhryANnc8MCqKEnwcakBTAY5T5Uuvr+BNqvWZ7k84/4v1fGqprfzwoSuES97sndSx0/PBu+F0JDNKFCPdoTMhEcWvOYwfaarhc6JY8szSQewVYRrs5LqGjvRy/hGEbe6onkwJwf5M4FWA4NnV+G5yH6Sg26DaVUwcvHW6Tb1ZEGg+DW3mNsvTHzVYfTSir5SnOAOHTM1GngxU9YX//cSO94GxmA0UxsDwdjpO7SjYtJp+VMtviIpNo2MTfSmLXkTiJ9IGI8G7OqQoFE49FpNqKvcLERw7z67Mh8Wy8KA37w3XKZoyUABFS6PlsWXCft24=
+    #         encrypt(gce_vm_application_path=<ABSOLUTE_PATH_OF_THE_APPLICATION_ROOT>)
+    - secure: poz7fCpViN7jWlaGUvgGeDlRsRLqg2kfRXsVVcvvb2k9xkxCJzVoQKs+B3/NVzyqHShvwsovIFO4xIp5B5GGYN3R4MtSoVUrY8RVP2lhpfv2/0jdkjAUD6AUR+zr8MsnWy6jChD6Qxxt6zWPAq5IYGO8vmAhiUvvzp9JrZWxuPqZi3FZC5sAefwkQEchdLvTE8M7pL+JRbewu2D/clT2UBBabbYcDUPgEgi0YyPZhvDk7ot6UGCOQBcPcY+0RC1XsEjh6JmWffrwPDF8D9tclGpFhvBETuI41QyLWdo6HVb9kMX6ylMW5nL+YiRvvUPAowoWP9z6SsXM9yg0VyGgrviZRJgL88P1AwLfsyRanxk7d2/h/pEdRnktZI1Z6R0fFByE0VXw4Chuie9seqeaIci7TQ2kDfaE4T/zifLC9zFylrKXqF2IYt0A+k0OZlDxGq7EcJz5lps/a2NO304tfWSpEW67HwPC6+HtUCg4igi+DvTQbNE3rUs5CS0TRUtpfvHT8NJj3SPrGgle8+Nf0TdrUlUYzFp6fPQyMrp4LZfPyoVLmeGaIPSQZlITb10QafcRMPTa8/70B7zG8qdi/aqCubwxqTjpA76PWwds1RuEDA5r6OzYIWikV0Q98rtO6wks5IM7NkgNk8dXSfLFSGOVWf3ILX8iP6TRklaXqSA=
+
+jobs:
+  include:
+    - if: (type = push AND branch = master) OR (type = pull_request AND ((branch = dev AND head_branch =~ /^(?i:issue-[0-9]+)-.*$/) OR (head_branch =~ /^dependabot\/dep\/.*$/)))
+      env:
+        - dep_url="https://raw.githubusercontent.com/golang/dep/master/install.sh"
+        - dep_version="v0.5.0"
+        - git_crypt_url="https://github.com/AGWA/git-crypt"
+        - git_crypt_version="0.6.0"
+        #         encrypt(git_crypt_symmetric_key_url=<GIT_CRYPT_SYMMETRIC_KEY_URL>)
+        - secure: jxGoi1CUHqkLlr7FvcNw3gQwNy+32HajYi8OweEovG1a+XMmP626NC+8cbCrVn/WdFCNpMuEYdl1SvxwzLhN/tPu9Tc0ILaMQoBfpeyeK10U3LVoDOF/LDe87lqAUARi+XOiewedCakk8AtCkAOHMrGmNkqCthTbmiryiCuLlAIhIxvwE0COj/Z6ewYKORGbPsYiiopbnp/gmxGIySUKua8/2y9AiwWvXXbsK7aHobaQE4I+fP/JHbMZxWFvPc9A9moTAYZKy860uFbzMNzBQPuWu8yQQrBraXnEiUvXolANi30dh6sYSaNwFMizdn3QNh7hHSiYq6d1PmLqRSejQawY5M9RlKMZoUxKX0sMkXBzRlF2dZsasYadF5ReNE3JJfcg73CM7qlVUm90UmVkh2j0u2NsaDi0DlVsVKsltTqWWNof9ROr5I6ueUDHj5t20wEB0Zv2SK3Zjho8kfHBqFNlFUtkRM9IdpzHmEahJbDwjVzKB+jrbfDXYvUoUgmFbGYZlfAZX62uHhVTkMjt5COB+wN/yNDuHKa88R8p6XQn+WzhrQTrR0zitcgwbbIl0aFSNC2FM2OI+d47gl6tn7MudYbu01IQCPnfcT13NEB66n+Imf/+tar5/0iAOwjKyOkbmBKwOpftob1XYvY+rkRn1j/dv4g8UfgAnK8zIqg=
+      language: go
+      go: "1.11.4"
+      before_install:
+        - export DEP_RELEASE_TAG=$dep_version
+        - curl "$dep_url" | sh
+        - if [ ! -d $HOME/bin/git-crypt ]; then
+            mkdir -p $HOME/bin/git-crypt;
+            git clone $git_crypt_url;
+            pushd git-crypt;
+            git checkout $git_crypt_version;
+            make -j$(nproc --all);
+            make install PREFIX=$HOME/bin/git-crypt;
+            popd;
+            rm -rf git-crypt;
+          fi
+        - wget -q -O /tmp/git_crypt_secret_ascii.key $git_crypt_symmetric_key_url
+        - cat /tmp/git_crypt_secret_ascii.key | base64 --decode > /tmp/git_crypt_secret.key
+        - $HOME/bin/git-crypt/bin/git-crypt unlock /tmp/git_crypt_secret.key
+        - rm /tmp/git_crypt_secret_ascii.key /tmp/git_crypt_secret.key
+        - app_dirs=(`ls server/src/`)
+        - export APPDIR=$(echo ${app_dirs[0]})
+        - pushd server/src/$APPDIR
+      install:
+        - dep ensure -v
+      script:
+        - export GOPATH=$TRAVIS_BUILD_DIR/server
+        - if [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then
+            echo -e "Running test cases for Go ...\n";
+            go build;
+          else
+            go install -a -ldflags "-w -s -X $APPDIR/logger.COMPILE_TIME_GOPATH=$GOPATH";
+          fi
+        - popd
+      after_success:
+        - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+            echo $encrypted_ssh_pvt_key | base64 -d | openssl enc -d -aes-256-cbc -k $symmetric_key > /tmp/gce_ssh_pvt.key;
+            chmod 400 /tmp/gce_ssh_pvt.key;
+            secret_files='';
+            while IFS='' read -r l || [[ -n "$l" ]]; do
+              secret_files=$secret_files' '$(echo $l | cut -d' ' -f1);
+            done < .gitattributes;
+            tar -cvjf server.tar.bz2 server/bin/* $secret_files;
+            scp -o StrictHostKeyChecking=no -i /tmp/gce_ssh_pvt.key server.tar.bz2 travis@$gce_vm_public_ip:~;
+            ssh -i /tmp/gce_ssh_pvt.key travis@$gce_vm_public_ip "while [ ! -f checksum ]; do sleep 4; done && md5sum --status -c checksum && rm checksum && sudo chown $gce_vm_application_user:$gce_vm_application_user client.tar.bz2 server.tar.bz2 && sudo mv client.tar.bz2 server.tar.bz2 $gce_vm_application_path && sudo -u $gce_vm_application_user sh -c \"cd $gce_vm_application_path && tar -xavf client.tar.bz2 && tar -xavf server.tar.bz2 && rm client.tar.bz2 server.tar.bz2 && ../stop.sh && sleep 2 && ../start.sh\" && exit";
+          fi
+      cache:
+        directories:
+          - $HOME/bin
+
+    - if: (type = push AND branch = master) OR (type = pull_request AND ((branch = dev AND head_branch =~ /^(?i:issue-[0-9]+)-.*$/) OR (head_branch =~ /^dependabot\/npm.*$/)))
+      language: node_js
+      node_js: "11.6.0"
+      before_install:
+        - npm i -g npm@6.5.0
+        - pushd client
+      install:
+        - npm install
+      script:
+        - if [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then
+            npm list;
+            echo -e "Running test cases for NodeJs ...\n";
+            npm run build;
+          else
+            npm run prod;
+          fi
+        - popd
+      after_success:
+        - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+            echo $encrypted_ssh_pvt_key | base64 -d | openssl enc -d -aes-256-cbc -k $symmetric_key > /tmp/gce_ssh_pvt.key;
+            chmod 400 /tmp/gce_ssh_pvt.key;
+            tar -cvjf client.tar.bz2 client/bundle/*;
+            md5sum client.tar.bz2 > checksum;
+            scp -o StrictHostKeyChecking=no -i /tmp/gce_ssh_pvt.key client.tar.bz2 checksum travis@$gce_vm_public_ip:~;
+          fi

@@ -1,0 +1,49 @@
+@import (reference) '../utils/util';
+
+.button {
+
+  @animation-duration: 1s;
+
+  &:extend(.no-select);
+  .cascading-property(font;
+                            family, 'Kranky';
+                            family, cursive;
+                            size, 34px
+                      );
+  padding: 10px;
+
+  @media @tablet {
+    font-size: 28px;
+    padding: 8px
+  }
+  @media @mobile-L {
+      font-size: 25px;
+      padding: 6px
+  }
+
+  opacity: 1;
+  float: right;
+  position: relative;
+  color: #0C0C0C;
+  cursor: pointer;
+  transition+: text-shadow @animation-duration linear;
+  transition+: opacity @animation-duration linear;
+  text-shadow+: 0.04em 0.04em 0 #FFF;
+  text-shadow+: 0.08em 0.08em 0 #AAA;
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0
+  }
+
+  span {
+    position: relative
+  }
+
+  &.clicked {
+    text-shadow: none;
+    opacity: 0.4;
+    cursor: progress
+  }
+}

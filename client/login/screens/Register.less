@@ -1,0 +1,138 @@
+@import './common';
+@import '../components/Button';
+@import '../components/InputField';
+@import '../components/Notification';
+
+.register {
+  &:extend(.paper);
+
+  .no-webp & {
+    border-image: @border-image-png
+  }
+  .webp & {
+    border-image: @border-image-webp
+  }
+
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: #000098;
+  transform: rotate(3deg);
+
+  .form {
+    padding: 20px 0 0 12%;
+
+    @media @mobile-L {
+      padding-top: 0;
+      margin-top: -9px
+    }
+    .banner {
+      .input-field {
+          @media @mobile-S {
+            margin-left: 3px;
+            margin-right: 3px
+          }
+      }
+      @media @mobile-S {
+        font-size: 22px
+      }
+    }
+
+    // size of input fields
+    input.fname, input.lname {
+      content: '24';
+      @media @tablet {
+        content: '18';
+      }
+    }
+    input.fname {
+      @media @mobile-L {
+        content: '17'
+      }
+      @media @mobile-M {
+        content: '14'
+      }
+      @media @mobile-S {
+        content: '13'
+      }
+    }
+    input.lname {
+      @media @mobile-L {
+        content: '15'
+      }
+      @media @mobile-M {
+        content: '12'
+      }
+      @media @mobile-S {
+        content: '12'
+      }
+    }
+    input.email {
+      content: '24';
+      @media @tablet {
+        content: '18';
+      }
+      @media @mobile-L {
+        content: '22';
+      }
+      @media @mobile-M {
+        content: '16'
+      }
+      @media @mobile-S {
+        content: '14'
+      }
+    }
+    input.password, input.confirmPassword {
+      content: '24';
+      @media @tablet {
+        content: '18';
+      }
+      @media @mobile-L {
+        content: '20';
+      }
+      @media @mobile-M {
+        content: '18'
+      }
+      @media @mobile-S {
+        content: '17'
+      }
+    }
+
+    .banner:before {
+      margin-left: 60px;
+      @media @mobile-M {
+        margin-left: 10px
+      }
+      @media @mobile-S {
+        margin-left: 0
+      }
+    }
+    .footer {
+      margin-top: 50px;
+      margin-right: 14px;
+
+      @media @laptop {
+        margin-top: 20px
+      }
+      @media @tablet {
+        margin-top: 28px
+      }
+      @media @mobile-L {
+        margin-top: 4px;
+        margin-right: 4px
+      }
+
+      .link {
+        margin-top: 34px;
+
+        @media @tablet {
+          margin-top: 28px
+        }
+        @media @mobile-L {
+          margin-top: 20px
+        }
+      }
+    }
+  }
+}

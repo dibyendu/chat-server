@@ -1,0 +1,124 @@
+@import (reference) '../utils/util';
+
+.input-field {
+
+  @place-holder-font-size: 30px;
+  @animation-duration: 400ms;
+
+  display: inline-block;
+  cursor: text;
+  .cascading-property(margin;
+                            left, 10px;
+                            right, 10px
+                      );
+  position: relative;
+  vertical-align: sub;
+
+  input.visible {
+    &::selection {
+      background: #F1F165
+    }
+    .cascading-property(font;
+                            family, 'Bilbo Swash Caps';
+                            family, cursive;
+                            size, @place-holder-font-size
+                        );
+    text-align: left;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px dashed lighten(gray, 20%);
+    height: 30px;
+    max-width: 350px;
+    outline: none;
+    color: @ink-color;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: right;
+
+    @media @tablet {
+      font-size: 27px
+    }
+  }
+
+  // font size of label
+  input.hidden {
+    content: '30';
+    @media @tablet {
+      content: '26'
+    }
+    @media @mobile-L {
+      content: '24'
+    }
+  }
+
+  svg {
+    position: absolute;
+    &.eye {
+      cursor: pointer
+    }
+  }
+
+  .label {
+    &:extend(.no-select);
+    .cascading-property(font;
+                            family, 'Bilbo Swash Caps';
+                            family, cursive;
+                            size, @place-holder-font-size
+                        );
+    line-height: 30px;
+
+    @media @tablet {
+      line-height: 26px
+    }
+    @media @mobile-L {
+      line-height: 24px
+    }
+
+    color: lighten(#888, 20%);
+    position: absolute;
+    left: 4px;
+    transition+: top @animation-duration ease;
+    transition+: font-size @animation-duration ease;
+  }
+
+  .password-strength-info {
+    .cascading-property(font;
+                            family, 'Roboto';
+                            family, sans-serif;
+                            size, 10px
+                        );
+    display: block;
+    position: relative;
+    top: 13px;
+    line-height: 0;
+    height: 0;
+    color: lighten(#888, 20%);
+    transition: visisility 0.4s;
+  }
+
+  @password-strength-meter-height: 4px;
+  .password-strength-meter {
+    width: 100%;
+    height: @password-strength-meter-height;
+    background: transparent;
+    position: absolute;
+    top: 34px;
+    float: left;
+    .part {
+      width: 33.33%;
+      float: left;
+      height: 100%;
+      transition: background-color 0.4s;
+      &:first-of-type {
+        border-top-left-radius: @password-strength-meter-height;
+        border-bottom-left-radius: @password-strength-meter-height
+      };
+      &:last-of-type {
+        border-top-right-radius: @password-strength-meter-height;
+        border-bottom-right-radius: @password-strength-meter-height
+      }
+    }
+  }
+}

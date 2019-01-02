@@ -1,0 +1,69 @@
+.select {
+  display: inline-block;
+  input[type='checkbox'] {
+    display: none;
+    &:checked + label > .options > ul {
+      display: inline-block;
+      & > li:hover {
+        background: rgba(255, 255, 0, 0.5)
+      }
+    }
+  }
+
+  .options {
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+
+    .selected {
+      font-family: 'Kranky', cursive;
+      width: 100%;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    & ~ canvas {
+      cursor: pointer;
+      position: relative;
+      float: left
+    }
+
+    ul {
+      margin: -10px 0 0;
+      padding: 0;
+      list-style: none;
+      display: none;
+      overflow-y: auto;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.5));
+      mask-position: left center, left bottom;
+
+      li {
+        display: grid;
+        margin-top: 5px;
+
+        span {
+          overflow: hidden;
+          white-space:nowrap;
+          text-overflow: ellipsis;
+          position: relative;
+          display: inline-block;
+          text-align: center;
+          vertical-align: middle;
+          text-shadow+: 0.04em 0.04em 0 #FFF;
+          text-shadow+: 0.08em 0.08em 0 #AAA;
+          transition: text-shadow 0.15s ease
+        }
+
+        &:active {
+          transform: scale(0.97) translate(1.5%, 1.5%);
+          span {
+            text-shadow: none
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@import (inline) '../common/reset.css';
+@import '../common/loader.less';
+@import '../common/widgets/Button';
+@import '../common/widgets/Dropdown';
+@import '../common/widgets/Input';
+
+#app {
+  font-family: 'Roboto Slab', serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  .form {
+    position: fixed;
+    bottom: 0;
+    width: 100%
+  }
+
+  .form .button {
+    margin-right: 0.5%;
+    float: left
+  }
+
+  .form .input {
+    float: left
+  }
+
+  .messages {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 10px 0
+  }
+
+  .messages li {
+    padding: 5px 10px
+  }
+
+  .messages li:nth-child(odd) {
+    background: #eee
+  }
+}
