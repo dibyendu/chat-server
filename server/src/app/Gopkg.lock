@@ -104,6 +104,14 @@
   version = "v1.4.0"
 
 [[projects]]
+  digest = "1:8a2a940fd81980cd5394dbb60a8f9ab49b5d8195e52cddec562b9a40eab394f0"
+  name = "github.com/iris-contrib/blackfriday"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "48b3da6a6f3865c7eb1eba96d74cf0a16f63faca"
+  version = "v2.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:be0e14e780a05a33d034ff3a33c385a383a028c84df710a95ec402062df025c3"
   name = "github.com/iris-contrib/formBinder"
@@ -152,7 +160,7 @@
   revision = "03be101463868edc5a81f094fc68a5f6c1b5503a"
 
 [[projects]]
-  digest = "1:0a77ce332de27e6f25c7860066705305f81488469aa9e75b1e7dd05c31c74abe"
+  digest = "1:6c408f4421fc8b66ba9d13961173c708f08147f707d260fe1c527467ae2a51f5"
   name = "github.com/kataras/iris"
   packages = [
     ".",
@@ -182,8 +190,8 @@
     "websocket",
   ]
   pruneopts = "UT"
-  revision = "ba71bda0a36afc574444bdb269a52649d1505953"
-  version = "v11.0.4"
+  revision = "91118c6b07fc9ad466df139f0846267aed1734b1"
+  version = "v11.1.0"
 
 [[projects]]
   branch = "master"
@@ -338,14 +346,6 @@
   pruneopts = "UT"
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
-
-[[projects]]
-  branch = "v2"
-  digest = "1:8e9d437c63cd2f78490af084de7e98ddb5bd515bbb12184b63ccd398e11bd5eb"
-  name = "gopkg.in/russross/blackfriday.v2"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "8bfdaf1a436429305573f9af5d87598ae609529a"
 
 [[projects]]
   digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"

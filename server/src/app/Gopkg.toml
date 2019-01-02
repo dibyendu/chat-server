@@ -47,7 +47,7 @@
 
 [[constraint]]
   name = "github.com/kataras/iris"
-  version = "=11.0.4"
+  version = "=11.1.0"
 
 [[constraint]]
   name = "github.com/sendgrid/sendgrid-go"
