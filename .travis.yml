@@ -81,7 +81,7 @@ jobs:
         - popd
       after_success:
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
-            echo $encrypted_ssh_pvt_key | base64 -d | openssl enc -d -aes-256-cbc -k $symmetric_key > /tmp/gce_ssh_pvt.key;
+            echo $encrypted_ssh_pvt_key | base64 --decode | openssl enc -d -aes-256-cbc -k $symmetric_key > /tmp/gce_ssh_pvt.key;
             chmod 400 /tmp/gce_ssh_pvt.key;
             secret_files='';
             while IFS='' read -r l || [[ -n "$l" ]]; do
@@ -114,7 +114,7 @@ jobs:
         - popd
       after_success:
         - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
-            echo $encrypted_ssh_pvt_key | base64 -d | openssl enc -d -aes-256-cbc -k $symmetric_key > /tmp/gce_ssh_pvt.key;
+            echo $encrypted_ssh_pvt_key | base64 --decode | openssl enc -d -aes-256-cbc -k $symmetric_key > /tmp/gce_ssh_pvt.key;
             chmod 400 /tmp/gce_ssh_pvt.key;
             tar -cvjf client.tar.bz2 client/bundle/*;
             md5sum client.tar.bz2 > checksum;

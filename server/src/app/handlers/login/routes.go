@@ -44,7 +44,7 @@ func SetRoutes(app *iris.Application, htmlTemplate *view.HandlebarsEngine, email
 				continue
 			}
 
-			query += strings.ToLower(t.Field(i).Name) + "="
+			query += strings.ToLower(t.Field(i).Tag.Get("yaml")) + "="
 			if t.Field(i).Name == "Scope" {
 				if auth.Separator != "" {
 					query += strings.Join(v.Field(i).Interface().([]string), auth.Separator)

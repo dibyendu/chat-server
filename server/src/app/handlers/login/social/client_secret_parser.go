@@ -5,13 +5,19 @@ type Auth struct {
 	Url         string `yaml:"auth_url"`
 	Separator   string `yaml:"scope_separator"`
 	QueryParams struct {
-		RedirectURI  string
-		ResponseType string
-		ClientID     string
-		Scope        []string
-		AccessType   string
-		AuthType     string
-	}
+		RedirectURI  string   `yaml:"redirect_uri"`
+		ResponseType string   `yaml:"response_type"`
+		ClientID     string   `yaml:"client_id"`
+		Scope        []string `yaml:"scope"`
+		AccessType   string   `yaml:"access_type"`
+		AuthType     string   `yaml:"auth_type"`
+	} `yaml:"query_params"`
+}
+
+// Token : token structure (sub structure of the ClientSecret structure)
+type Token struct {
+	Url          string `yaml:"token_url"`
+	ClientSecret string `yaml:"client_secret"`
 }
 
 // ClientSecret : the ClientSecret structure
@@ -19,10 +25,7 @@ type Auth struct {
 type ClientSecret struct {
 	Google struct {
 		Auth
-		Token struct {
-			Url          string `yaml:"token_url"`
-			ClientSecret string
-		}
+		Token
 		Api struct {
 			UserURL   string `yaml:"user_info_url"`
 			Geocoding string
@@ -38,10 +41,7 @@ type ClientSecret struct {
 
 	Facebook struct {
 		Auth
-		Token struct {
-			Url          string `yaml:"token_url"`
-			ClientSecret string
-		}
+		Token
 		Api struct {
 			Permission struct {
 				Url string
@@ -63,10 +63,7 @@ type ClientSecret struct {
 
 	Github struct {
 		Auth
-		Token struct {
-			Url          string `yaml:"token_url"`
-			ClientSecret string
-		}
+		Token
 		Api struct {
 			Url   string `yaml:"user_info_url"`
 			Email string `yaml:"user_email_url"`
@@ -75,10 +72,7 @@ type ClientSecret struct {
 
 	Yahoo struct {
 		Auth
-		Token struct {
-			Url          string `yaml:"token_url"`
-			ClientSecret string
-		}
+		Token
 		Api struct {
 			UserURL string `yaml:"user_info_url"`
 		}
@@ -86,16 +80,13 @@ type ClientSecret struct {
 
 	Microsoft struct {
 		Auth
-		Token struct {
-			Url          string `yaml:"token_url"`
-			ClientSecret string
-		}
+		Token
 		Api struct {
 			UserInfo struct {
 				Url string
-			}
+			} `yaml:"user_info"`
 			Picture struct {
-				MetaURL string
+				MetaURL string `yaml:"meta_url"`
 				Url     string
 			}
 		}
