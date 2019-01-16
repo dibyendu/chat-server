@@ -160,7 +160,7 @@
   revision = "03be101463868edc5a81f094fc68a5f6c1b5503a"
 
 [[projects]]
-  digest = "1:6c408f4421fc8b66ba9d13961173c708f08147f707d260fe1c527467ae2a51f5"
+  digest = "1:8913056218a1c21b4936f618698f10fbd96e6a8ef0de690118e6b730566523d3"
   name = "github.com/kataras/iris"
   packages = [
     ".",
@@ -190,8 +190,8 @@
     "websocket",
   ]
   pruneopts = "UT"
-  revision = "91118c6b07fc9ad466df139f0846267aed1734b1"
-  version = "v11.1.0"
+  revision = "5e81b605c93c0243fe5ac26e3b1378b5f549a8b2"
+  version = "v11.1.1"
 
 [[projects]]
   branch = "master"
