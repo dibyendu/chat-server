@@ -58,8 +58,8 @@ module.exports = {
       append:             Set to false or omit the field to prepend the CDN uri before the bundled JS/CSS
     }
 
-    'output_dir' MUST be used if 'input_file' contains regular expressions,
-    'output_file' is to be used otherwise.
+    'output_dir' MUST be used if 'input_file' contains regular expressions, 'output_file' has to be used otherwise.
+    'output_dir' can be a string representing any valid path (like 'path/to/the/dir' or '.') but can not be an empty string.
   */
   html: [
     {

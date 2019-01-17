@@ -1,38 +1,50 @@
 <script src='//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'></script>
 <script async type='text/javascript'>
-  const FontLoadStatus = {
-    loaded: false,
-    loadMap: Object.keys(fonts).map(font => ({[font]: false})).reduce((a, b) => {return Object.assign({}, a, b)}),
-    set setLoaded(font) {
-      this.loadMap[font] = true
-      this.loaded = Object.keys(fonts).filter(font => this.loadMap[font]).length === Object.keys(fonts).length ? true : false
-      if (this.watcher && this.loaded)
-      this.watcher()
-    },
-    watcher: null,
-    onFontsLoad: function(watcher) {
-      this.watcher = watcher
+  const FONTS = fonts,
+    FontLoadStatus = {
+      loaded: false,
+      loadMap: Object.keys(FONTS).map(_font => ({
+        [_font.split(':')[0]]: false
+      })).reduce((a, b) => {
+        return Object.assign({}, a, b)
+      }),
+      set setLoaded(_font) {
+        this.loadMap[_font] = true
+        this.loaded = Object.keys(FONTS).filter(_font => this.loadMap[_font.split(':')[0]]).length === Object.keys(FONTS).length ? true : false
+        if (this.watcher && this.loaded)
+          this.watcher()
+      },
+      watcher: null,
+      onFontsLoad: function(watcher) {
+        this.watcher = watcher
+      }
     }
-  }
 
-  let activeCallback = (font, _) => { FontLoadStatus.setLoaded = font },
-  inactiveCallback = (_, __) => { setTimeout(load, 200) },
-  families = Object.entries(fonts).filter(f => f[1]).map(f => ({families: [f[0]], text: f[1]})).concat(
-    Object.entries(fonts).filter(f => !f[1]).map(f => f[0]).length ?
-    {families: Object.entries(fonts).filter(f => !f[1]).map(f => f[0])} :
-    []
-  ),
-  load = () => {
-    families.forEach(family => {
-      WebFont.load({
-        google: family,
-        classes: false,
-        timeout: 8000,
-        fontactive: activeCallback,
-        fontinactive: inactiveCallback
+  let activeCallback = (_font, _) => {
+      FontLoadStatus.setLoaded = _font
+    },
+    inactiveCallback = (_, __) => {
+      setTimeout(load, 200)
+    },
+    families = Object.entries(FONTS).filter(_font => _font[1]).map(_font => ({
+      families: [_font[0]],
+      text: _font[1]
+    })).concat(
+      Object.entries(FONTS).filter(_font => !_font[1]).map(_font => _font[0]).length ? {
+        families: Object.entries(FONTS).filter(_font => !_font[1]).map(_font => _font[0])
+      } : []
+    ),
+    load = () => {
+      families.forEach(family => {
+        WebFont.load({
+          google: family,
+          classes: false,
+          timeout: 8000,
+          fontactive: activeCallback,
+          fontinactive: inactiveCallback
+        })
       })
-    })
-  }
+    }
 
   load()
 </script>

@@ -10,21 +10,6 @@ export default class App extends React.Component {
     if (!FontLoadStatus.loaded)
       FontLoadStatus.onFontsLoad(() => this.setState({ loading: false }))
 
-    this.state = {
-      loading: !FontLoadStatus.loaded,
-
-      receiver: {name: '', ids: ''},
-      message: '',
-      active_users: [],
-      chats: []
-    }
-
-    this.inputField = null
-    this.chats = []
-    this.chatIndex = 0
-  }
-
-  componentDidMount() {
     this.user_name = USER_NAME
     this.user_id = USER_ID
     this.socket = new Ws(WEBSOCKET_URL)
@@ -46,7 +31,7 @@ export default class App extends React.Component {
 
     this.socket.On('chat message from server', data => {
       data = JSON.parse(data)
-      this.chats.push(<li key={this.chatIndex} style={{textAlign: 'left'}}><span style={{fontWeight: 'bold', color: 'red'}}>{data['from']}</span>: {data['message']}</li>)
+      this.chats.push(<li key={this.chatIndex} style={{textAlign: 'left'}}><span style={{fontStyle: 'italic', color: 'red'}}>{data['from']}</span>: {data['message']}</li>)
       this.chatIndex += 1
       this.setState({chats: this.chats})
     })
@@ -54,11 +39,24 @@ export default class App extends React.Component {
     this.socket.On('chat msg send ack', data => {
       data = JSON.parse(data)
       if (data['success']) {
-        this.chats.push(<li key={this.chatIndex} style={{textAlign: 'right'}}>{data['message']}</li>)
+        this.chats.push(<li key={this.chatIndex} style={{textAlign: 'right'}}>{data['message']} <sub>{data['to']}</sub></li>)
         this.chatIndex += 1
         this.setState({chats: this.chats})
       }
     })
+
+    this.inputField = null
+    this.chats = []
+    this.chatIndex = 0
+
+    this.state = {
+      loading: !FontLoadStatus.loaded,
+
+      receiver: {name: '', ids: ''},
+      message: '',
+      active_users: [],
+      chats: []
+    }
   }
 
   render() {
@@ -77,12 +75,12 @@ export default class App extends React.Component {
         <div className='form'>
           <Button text='Send' width={130} height={40} fontSize={30} onClick={_ => {
             let message = this.state.message,
-                ignore_receiver_name = this.state.receiver.name,
-                receiver_ids = this.state.receiver.ids
+              receiver_name = this.state.receiver.name,
+              receiver_ids = this.state.receiver.ids
             if (message && receiver_ids) {
               let receiver_socket_id = receiver_ids.split('|')[0],
-                  ignore_receiver_uuid = receiver_ids.split('|')[1]
-              this.socket.Emit('chat message to server', {sender: this.user_name, socket_id: receiver_socket_id, message: message})
+                ignore_receiver_uuid = receiver_ids.split('|')[1]
+              this.socket.Emit('chat message to server', {sender: this.user_name, socket_id: receiver_socket_id, message: message, receiver: receiver_name})
               this.inputField.clear()
               this.setState({message: ''})
             }

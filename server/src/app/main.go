@@ -145,12 +145,13 @@ func main() {
 		})
 
 		c.On("chat message to server", func(data interface{}) {
-			sender, sid, msg := data.(map[string]interface{})["sender"].(string), data.(map[string]interface{})["socket_id"].(string), data.(map[string]interface{})["message"].(string)
+			sender, sid, msg, receiver := data.(map[string]interface{})["sender"].(string), data.(map[string]interface{})["socket_id"].(string), data.(map[string]interface{})["message"].(string),
+			data.(map[string]interface{})["receiver"].(string)
 			go func() {
 				c.To(sid).Emit("chat message from server", map[string]string{"from": sender, "message": msg})
 			}()
 			go func() {
-				c.Emit("chat msg send ack", map[string]interface{}{"success": true, "message": msg})
+				c.Emit("chat msg send ack", map[string]interface{}{"success": true, "message": msg, "to": receiver})
 			}()
 		})
 	})
