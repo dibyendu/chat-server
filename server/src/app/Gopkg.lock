@@ -117,7 +117,7 @@
   name = "github.com/iris-contrib/formBinder"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ad9fb86c356f971f30319c40ddbdcf72129a2791"
+  revision = "fbd5963f41e18ae1f1423ba046235094b0721ea1"
 
 [[projects]]
   branch = "v2"
