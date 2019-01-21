@@ -1,16 +1,13 @@
-<script src='//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.js'></script>
 <script async type='text/javascript'>
   const FONTS = fonts,
     FontLoadStatus = {
       loaded: false,
-      loadMap: Object.keys(FONTS).map(_font => ({
-        [_font.split(':')[0]]: false
-      })).reduce((a, b) => {
-        return Object.assign({}, a, b)
-      }),
+      loadMap: {},
       set setLoaded(_font) {
-        this.loadMap[_font] = true
-        this.loaded = Object.keys(FONTS).filter(_font => this.loadMap[_font.split(':')[0]]).length === Object.keys(FONTS).length ? true : false
+        this.loadMap[_font] -= 1
+        this.loaded = Object.keys(this.loadMap).length === Object.keys(FONTS).length &&
+                      Object.keys(this.loadMap).filter(_font => this.loadMap[_font] === 0).length === Object.keys(FONTS).length
         if (this.watcher && this.loaded)
           this.watcher()
       },
@@ -20,7 +17,10 @@
       }
     }
 
-  let activeCallback = (_font, _) => {
+  let loadingCallback = (_font, _) => {
+      FontLoadStatus.loadMap[_font] = _font in FontLoadStatus.loadMap ? FontLoadStatus.loadMap[_font] + 1 : 1
+    },
+    activeCallback = (_font, _) => {
       FontLoadStatus.setLoaded = _font
     },
     inactiveCallback = (_, __) => {
@@ -40,6 +40,7 @@
           google: family,
           classes: false,
           timeout: 8000,
+          fontloading: loadingCallback,
           fontactive: activeCallback,
           fontinactive: inactiveCallback
         })
