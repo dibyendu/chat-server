@@ -89,7 +89,7 @@ jobs:
             done < .gitattributes;
             tar -cvjf server.tar.bz2 server/bin/* $secret_files;
             scp -o StrictHostKeyChecking=no -i /tmp/gce_ssh_pvt.key server.tar.bz2 travis@$gce_vm_public_ip:~;
-            ssh -i /tmp/gce_ssh_pvt.key travis@$gce_vm_public_ip "while [ ! -f checksum ]; do sleep 4; done && md5sum --status -c checksum && rm checksum && sudo chown $gce_vm_application_user:$gce_vm_application_user client.tar.bz2 server.tar.bz2 && sudo mv client.tar.bz2 server.tar.bz2 $gce_vm_application_path && sudo -u $gce_vm_application_user sh -c \"cd $gce_vm_application_path && tar -xavf client.tar.bz2 && tar -xavf server.tar.bz2 && rm client.tar.bz2 server.tar.bz2 && ../stop.sh && sleep 2 && ../start.sh\" && exit";
+            ssh -i /tmp/gce_ssh_pvt.key travis@$gce_vm_public_ip "while [ ! -f checksum ]; do sleep 4; done && md5sum --status -c checksum && rm checksum && sudo chown $gce_vm_application_user:$gce_vm_application_user client.tar.bz2 server.tar.bz2 && sudo mv client.tar.bz2 server.tar.bz2 $gce_vm_application_path && sudo -u $gce_vm_application_user sh -c \"cd $gce_vm_application_path && rm -rf client server && tar -xavf client.tar.bz2 && tar -xavf server.tar.bz2 && rm client.tar.bz2 server.tar.bz2 && ../stop.sh && sleep 2 && ../start.sh\" && exit";
           fi
       cache:
         directories:
