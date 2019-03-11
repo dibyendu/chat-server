@@ -38,7 +38,7 @@
     "less": "^3.9.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.8.4",
     "roughjs": "^3.0.0",
     "zxcvbn": "^4.4.2"
   },
