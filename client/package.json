@@ -62,7 +62,7 @@
     "less-plugin-autoprefix": "^2.0.0",
     "less-plugin-group-css-media-queries": "^1.1.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "raw-loader": "^1.0.0",
+    "raw-loader": "^2.0.0",
     "react-hot-loader": "^4.6.3",
     "style-loader": "^0.23.1",
     "uglify-es": "^3.3.9",
