@@ -63,7 +63,7 @@
     "less-plugin-group-css-media-queries": "^1.1.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "raw-loader": "^1.0.0",
-    "react-hot-loader": "^4.6.3",
+    "react-hot-loader": "^4.11.1",
     "style-loader": "^0.23.1",
     "uglify-es": "^3.3.9",
     "webpack": "^4.28.4",
