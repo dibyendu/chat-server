@@ -113,7 +113,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:be0e14e780a05a33d034ff3a33c385a383a028c84df710a95ec402062df025c3"
+  digest = "1:0bf41727fc35771ce87509c7b7a51b5d9763b65eafe8f89f3c792702a0bb097f"
   name = "github.com/iris-contrib/formBinder"
   packages = ["."]
   pruneopts = "UT"
@@ -128,12 +128,12 @@
   revision = "36e9d2ebbde5e3f13ab2e25625fd453271d6522e"
 
 [[projects]]
-  branch = "v10"
-  digest = "1:61e12c1a2cf73a4c4c4d70a61c4b6be8291acd60fa441ca1d0a40a467f58e4da"
+  digest = "1:564a2a23273227e49425fa2b77883a8daf3304059740cae3ca293a3ed1c64b0f"
   name = "github.com/iris-contrib/middleware"
   packages = ["jwt"]
   pruneopts = "UT"
-  revision = "8bd5d51b3c2e8ea5ed91036b42ea8b884b597ef8"
+  revision = "5f3a20f489c42276e74d54c49393b521945a8c02"
+  version = "v11"
 
 [[projects]]
   branch = "master"
