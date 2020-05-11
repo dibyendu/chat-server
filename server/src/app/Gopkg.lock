@@ -113,7 +113,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:be0e14e780a05a33d034ff3a33c385a383a028c84df710a95ec402062df025c3"
+  digest = "1:0bf41727fc35771ce87509c7b7a51b5d9763b65eafe8f89f3c792702a0bb097f"
   name = "github.com/iris-contrib/formBinder"
   packages = ["."]
   pruneopts = "UT"
@@ -292,7 +292,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:79be964d6423abd926d69ab4715279f4b461d3a338e2478608d1aa2b7e6527cb"
+  digest = "1:a797124a9a58b5529b32f99c9993f4f89f6dddfd6c71d10ae994be5912134d20"
   name = "golang.org/x/crypto"
   packages = [
     "acme",
@@ -301,7 +301,7 @@
     "scrypt",
   ]
   pruneopts = "UT"
-  revision = "ff983b9c42bc9fbf91556e191cc8efb585c16908"
+  revision = "06a226fb4e3765ef3f48aa2852b401bc7b98e981"
 
 [[projects]]
   branch = "master"
