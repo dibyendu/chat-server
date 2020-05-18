@@ -113,7 +113,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:be0e14e780a05a33d034ff3a33c385a383a028c84df710a95ec402062df025c3"
+  digest = "1:0bf41727fc35771ce87509c7b7a51b5d9763b65eafe8f89f3c792702a0bb097f"
   name = "github.com/iris-contrib/formBinder"
   packages = ["."]
   pruneopts = "UT"
@@ -264,15 +264,15 @@
   version = "v2.4.1"
 
 [[projects]]
-  digest = "1:bf326e9bc2c70dfc765590bfa9c9985e41355f7972fb50e7f052440f3a5122a2"
+  digest = "1:f63de955e63f0876a0a882009d6d5cf7906042139d597a1f76fbc49d3e21eada"
   name = "github.com/sendgrid/sendgrid-go"
   packages = [
     ".",
     "helpers/mail",
   ]
   pruneopts = "UT"
-  revision = "8caf17aa96b4a98bae8bd216878dd50ff12897b5"
-  version = "v3.4.1"
+  revision = "545b23ed9859eff0c015bfdbe5e6b2c9c7545981"
+  version = "3.6.0"
 
 [[projects]]
   digest = "1:9421f6e9e28ef86933e824b5caff441366f2b69bb281085b9dca40e1f27a1602"
