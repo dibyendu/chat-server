@@ -113,7 +113,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:be0e14e780a05a33d034ff3a33c385a383a028c84df710a95ec402062df025c3"
+  digest = "1:0bf41727fc35771ce87509c7b7a51b5d9763b65eafe8f89f3c792702a0bb097f"
   name = "github.com/iris-contrib/formBinder"
   packages = ["."]
   pruneopts = "UT"
@@ -153,11 +153,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f17dfd7df684b802076e8b0b316f27788763f647f8dbee368c98b2cb933d8657"
+  digest = "1:33519bf2dcf3f08ea840ee512b755ffb421c493160f05b11dd3e41a286513edc"
   name = "github.com/kataras/golog"
   packages = ["."]
   pruneopts = "UT"
-  revision = "03be101463868edc5a81f094fc68a5f6c1b5503a"
+  revision = "31dde6aa991e048c0debdb45f7ccc56890a97638"
 
 [[projects]]
   digest = "1:8913056218a1c21b4936f618698f10fbd96e6a8ef0de690118e6b730566523d3"
